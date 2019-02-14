@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 public class CitiesApplication {
 
     public static final String EXCHANGE_NAME = "LambdaServer";
+    public static final String SECRET_QUEUE = "Secret";
     public static final String QUEUE_CITIES_ONE = "Cities One";
     public static final String QUEUE_CITIES_TWO = "Cities Two";
 
@@ -43,6 +44,16 @@ public class CitiesApplication {
     @Bean
     public Binding declareBindingCitiesTwo() {
         return BindingBuilder.bind(appQueueCitiesTwo()).to(appExchange()).with(QUEUE_CITIES_TWO);
+    }
+
+    @Bean
+    public Queue appQueueSecret() {
+        return new Queue(SECRET_QUEUE);
+    }
+
+    @Bean
+    public Binding declareBindingSecret() {
+        return BindingBuilder.bind(appQueueSecret()).to(appExchange()).with(SECRET_QUEUE);
     }
 
     @Bean
